@@ -1,3 +1,4 @@
+----------- Creacion de las tablas ----------------
 -- Estructura de tabla para la tabla `Pasajeros` --
 CREATE TABLE pasajeros(
 IdPasajeros INT,
@@ -70,3 +71,8 @@ INSERT INTO viajes(IdViajes, IdPasajero, IdTrayecto, Inicio, Fin)
 	(2,2,2,'09:20','13:00'),
 	(3,3,3,'08:15','09:33');
 	
+----------- Creacion de ROLES ----------------
+CREATE ROLE usuario_consulta WITH
+	LOGIN
+	INHERIT
+	PASSWORD 'etc123';
