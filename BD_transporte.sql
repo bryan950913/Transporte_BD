@@ -46,3 +46,14 @@ CREATE ROLE usuario_consulta WITH
 	LOGIN
 	INHERIT
 	PASSWORD 'etc123';
+	
+----------- JOINS ----------------
+SELECT * FROM pasajeros
+JOIN viajes ON (viajes.IdPasajero = pasajeros.IdPasajeros);
+
+SELECT * FROM pasajeros
+LEFT JOIN viajes ON (viajes.IdPasajero = pasajeros.IdPasajeros)
+WHERE viajes.IdViajes IS NULL; 
+
+SELECT * FROM trenes
+RIGHT JOIN trayectos ON (trayectos.IdTren = trenes.IdTrenes);
