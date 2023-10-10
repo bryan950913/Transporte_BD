@@ -166,7 +166,7 @@ LANGUAGE PLPGSQL;
 SELECT FuncionPL();
 
 ---------------------------------
-CREATE FUNCTION imporPL()
+CREATE FUNCTION impl()
     RETURNS integer
     LANGUAGE 'plpgsql'
     
@@ -184,4 +184,34 @@ BEGIN
 END
 $BODY$;
 
-SELECT imporPL();
+SELECT impl();
+
+-------------- TRIGGERS -------------------
+CREATE OR REPLACE FUNCTION impl()
+    RETURNS TRIGGER
+    LANGUAGE 'plpgsql'
+AS $BODY$
+DECLARE 
+	rec record;
+	cont int := 0;
+BEGIN 
+	FOR rec IN SELECT * FROM pasajeros LOOP
+		cont := cont + 1;
+	END LOOP;
+	INSERT INTO cont_pasajeros(total,tiempo)
+	VALUES (cont,now());
+END
+$BODY$;
+
+CREATE TRIGGER mitrigger
+AFTER INSERT
+ON pasajeros
+FOR EACH ROW
+EXECUTE PROCEDURE impl();
+
+SELECT impl();
+SELECT * FROM cont_pasajeros;
+SELECT * FROM pasajeros;
+
+INSERT INTO pasajeros(IdPasajeros,Nombre,DireccionResidencia,FechaNacimiento)
+VALUES(102,'Nombre Trigger','Dir Acá','2000-01-01');
