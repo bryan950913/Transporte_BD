@@ -70,25 +70,25 @@ END
 FROM pasajeros;
 
 ------------ Consulta CASE de Nombres que comienzan con (a,e,i,o,u) y Mayores de Edad ------------
-SELECT IdPasajeros, Nombre, FechaNacimiento,
+SELECT Nombre, FechaNacimiento,
 CASE 
 WHEN Nombre ILIKE 'a%' 
 THEN 
-	'Empieza por la letra A'
+	'Vocal A'
 WHEN Nombre ILIKE 'e%' 
 THEN 
-	'Empieza por la letra E'
+	'Vocal E'
 WHEN Nombre ILIKE 'i%' 
 THEN 
-	'Empieza por la letra I'
+	'Vocal I'
 WHEN Nombre ILIKE 'o%' 
 THEN 
-	'Empieza por la letra O'
+	'Vocal O'
 WHEN Nombre ILIKE 'u%' 
 THEN 
-	'Empieza por la letra U'
+	'Vocal U'
 ELSE
-	'!= Vocal'
+	CONCAT('Abecedario',' ',SUBSTRING(Nombre,1,1))
 END AS "Nombres Vocales",
 CASE
 WHEN FechaNacimiento < '2005-01-01'
