@@ -98,3 +98,37 @@ ELSE
 	'Menor de Edad'
 END AS "EDAD"
 FROM pasajeros;
+
+------------ Creación de View ------------
+CREATE VIEW rango_view
+ AS
+SELECT Nombre, FechaNacimiento,
+CASE 
+WHEN Nombre ILIKE 'a%' 
+THEN 
+	'Vocal A'
+WHEN Nombre ILIKE 'e%' 
+THEN 
+	'Vocal E'
+WHEN Nombre ILIKE 'i%' 
+THEN 
+	'Vocal I'
+WHEN Nombre ILIKE 'o%' 
+THEN 
+	'Vocal O'
+WHEN Nombre ILIKE 'u%' 
+THEN 
+	'Vocal U'
+ELSE
+	CONCAT('Abecedario',' ',SUBSTRING(Nombre,1,1))
+END AS "Nombres Vocales",
+CASE
+WHEN FechaNacimiento < '2005-01-01'
+THEN 
+	'Mayor de Edad'
+ELSE
+	'Menor de Edad'
+END AS "EDAD"
+FROM pasajeros;
+;
+
