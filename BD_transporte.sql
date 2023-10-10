@@ -132,3 +132,56 @@ END AS "EDAD"
 FROM pasajeros;
 ;
 
+------------ PL/SQL ------------
+DO $$
+DECLARE 
+	rec record;
+	cont int := 0;
+BEGIN 
+	FOR rec IN SELECT * FROM pasajeros LOOP
+		RAISE NOTICE 'El pasajero se llama %' , rec.nombre;
+		cont = cont + 1;
+	END LOOP;
+	RAISE NOTICE 'El Conteo es: %' , cont;
+END
+$$
+
+---------------------------------
+CREATE FUNCTION FuncionPL()
+	RETURNS void
+	AS $$
+DECLARE 
+	rec record;
+	cont int := 0;
+BEGIN 
+	FOR rec IN SELECT * FROM pasajeros LOOP
+		RAISE NOTICE 'El pasajero se llama %' , rec.nombre;
+		cont = cont + 1;
+	END LOOP;
+	RAISE NOTICE 'El Conteo es: %' , cont;
+END
+$$
+LANGUAGE PLPGSQL;
+
+SELECT FuncionPL();
+
+---------------------------------
+CREATE FUNCTION imporPL()
+    RETURNS integer
+    LANGUAGE 'plpgsql'
+    
+AS $BODY$
+DECLARE 
+	rec record;
+	cont int := 0;
+BEGIN 
+	FOR rec IN SELECT * FROM pasajeros LOOP
+		RAISE NOTICE 'El pasajero se llama %' , rec.nombre;
+		cont := cont + 1;
+	END LOOP;
+	RAISE NOTICE 'El Conteo es: %' , cont;
+	RETURN cont;
+END
+$BODY$;
+
+SELECT imporPL();
