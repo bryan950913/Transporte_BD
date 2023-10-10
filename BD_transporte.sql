@@ -57,3 +57,44 @@ WHERE viajes.IdViajes IS NULL;
 
 SELECT * FROM trenes
 RIGHT JOIN trayectos ON (trayectos.IdTren = trenes.IdTrenes);
+
+------------ Consulta CASE de Mayor y Menor ------------
+SELECT IdPasajeros, DireccionResidencia, FechaNacimiento,
+CASE 
+WHEN FechaNacimiento > '2015-01-01' 
+THEN
+	'Menor'
+ELSE 
+	'Mayor'
+END
+FROM pasajeros;
+
+------------ Consulta CASE de Nombres que comienzan con (a,e,i,o,u) y Mayores de Edad ------------
+SELECT IdPasajeros, Nombre, FechaNacimiento,
+CASE 
+WHEN Nombre ILIKE 'a%' 
+THEN 
+	'Empieza por la letra A'
+WHEN Nombre ILIKE 'e%' 
+THEN 
+	'Empieza por la letra E'
+WHEN Nombre ILIKE 'i%' 
+THEN 
+	'Empieza por la letra I'
+WHEN Nombre ILIKE 'o%' 
+THEN 
+	'Empieza por la letra O'
+WHEN Nombre ILIKE 'u%' 
+THEN 
+	'Empieza por la letra U'
+ELSE
+	'!= Vocal'
+END AS "Nombres Vocales",
+CASE
+WHEN FechaNacimiento < '2005-01-01'
+THEN 
+	'Mayor de Edad'
+ELSE
+	'Menor de Edad'
+END AS "EDAD"
+FROM pasajeros;
